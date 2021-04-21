@@ -1,0 +1,24 @@
+name: Android Test Build
+
+on:
+  pull_request:
+    branches: [ dev, master ]
+  workflow_dispatch:
+    branches: [ dev, master ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.2
+      
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 1.8
+        
+    - name: Build all artifacts
+      run: ./gradlew assembleRelease
