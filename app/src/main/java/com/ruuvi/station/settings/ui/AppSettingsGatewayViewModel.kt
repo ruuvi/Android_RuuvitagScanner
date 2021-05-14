@@ -7,6 +7,7 @@ import com.ruuvi.station.settings.domain.GatewayTestResult
 import com.ruuvi.station.settings.domain.GatewayTestResultType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import timber.log.Timber
 
 class AppSettingsGatewayViewModel(
         private val interactor: AppSettingsInteractor
@@ -36,6 +37,7 @@ class AppSettingsGatewayViewModel(
                 FutureCallback { e, result ->
                     when {
                         e != null -> {
+                            Timber.e(e,"Gateway test exception")
                             testGatewayResult.value = GatewayTestResult(GatewayTestResultType.EXCEPTION)
                         }
                         result.headers.code() != 200 -> {
